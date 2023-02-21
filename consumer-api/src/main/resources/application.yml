@@ -1,0 +1,3 @@
+endpoints:
+  viacep:
+    url: https://viacep.com.br/ws/
