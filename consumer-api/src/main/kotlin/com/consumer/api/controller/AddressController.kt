@@ -34,7 +34,7 @@ class AddressController(
                 logger.info("Address returned successfully")
             }
         } catch (ex: Exception) {
-            logger.error("Address Search error - CEP: $cep")
+            logger.error("ADDRESS SEARCH ERROR - CEP: $cep", ex)
             ResponseEntity(HttpStatus.BAD_REQUEST)
         }
 
