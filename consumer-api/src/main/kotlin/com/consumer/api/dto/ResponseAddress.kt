@@ -1,6 +1,6 @@
 package com.consumer.api.dto
 
-data class Endereco(
+data class ResponseAddress(
     val cep: String,
     val logradouro: String,
     val complemento: String?,

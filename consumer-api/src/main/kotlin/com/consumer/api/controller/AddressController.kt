@@ -1,6 +1,6 @@
 package com.consumer.api.controller
 
-import com.consumer.api.dto.Endereco
+import com.consumer.api.dto.ResponseAddress
 import com.consumer.api.service.AddressService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -20,10 +20,24 @@ class AddressController(
     private val logger = LoggerFactory.getLogger(AddressController::class.java)
 
     @GetMapping("/{cep}")
-    fun getAddress(@PathVariable cep: String): ResponseEntity<Endereco> {
+    fun getAddress(
+        @PathVariable cep: String
+    ): ResponseEntity<ResponseAddress> {
+
         logger.info("Request Received - CEP: $cep")
-        return ResponseEntity.status(HttpStatus.OK)
-            .body(addressService.getAddressByCep(cep))
+
+        return try {
+            return ResponseEntity(
+                addressService.getAddressByCep(cep),
+                HttpStatus.OK
+            ).also {
+                logger.info("Address returned successfully")
+            }
+        } catch (ex: Exception) {
+            logger.error("Address Search error - CEP: $cep")
+            ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
+
     }
 
 }
